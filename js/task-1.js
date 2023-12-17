@@ -1,8 +1,39 @@
-function makeTransaction(quantity, pricePerDroid) {
-    const totalPrice = quantity*pricePerDroid;
-    return(`You ordered ${quantity} droids worth ${totalPrice} credits!`) 
-};
+class User {
+  _email;
 
-console.log(makeTransaction(5, 3000)); 
-console.log(makeTransaction(3, 1000)); 
-console.log(makeTransaction(10, 500));
+  constructor(email) {
+    this._email = email;
+  }
+
+  get email() {
+    return this._email;
+  }
+
+  set email(newEmail) {
+    this._email = newEmail;
+  }
+}
+
+class Admin extends User {
+  static role = {
+    BASIC: "basic",
+    SUPERUSER: "superuser",
+  };
+
+  blacklistedEmails = [];
+
+  blacklist(email) {
+    this.blacklistedEmails.push(email);
+  }
+
+  isBlacklisted(email) {
+    return this.blacklistedEmails.includes(email);
+  }
+}
+
+const mango = new Admin({ email: "mango@mail.com", access: Admin.role.SUPERUSER });
+
+mango.blacklist("poly@mail.com");
+console.log(mango.blacklistedEmails); // Output: ["poly@mail.com"]
+console.log(mango.isBlacklisted("mango@mail.com")); // Output: false
+console.log(mango.isBlacklisted("poly@mail.com")); // Output: true
