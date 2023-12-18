@@ -1,8 +1,7 @@
 class Storage {
   #items;
-
-  constructor(initialItems) {
-    this.#items = initialItems;
+  constructor(items) {
+    this.#items = items;
   }
 
   getItems() {
@@ -14,15 +13,16 @@ class Storage {
   }
 
   removeItem(itemToRemove) {
-    this.#items = this.#items.filter(item => item !== itemToRemove);
+    const index = this.#items.indexOf(itemToRemove);
+    if (index !== -1) {
+      const deletedElement = this.#items.splice(index, 1);
+    }
   }
 }
 
-const storage = new Storage(["Nanitoids", "Prolonger", "Antigravitator"]);
+const storage = new Storage(['Nanitoids', 'Prolonger', 'Antigravitator']);
 console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
-
-storage.addItem("Droid");
+storage.addItem('Droid');
 console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
-
-storage.removeItem("Prolonger");
+storage.removeItem('Prolonger');
 console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]

@@ -1,7 +1,7 @@
 class StringBuilder {
   #value;
 
-  constructor(initialValue) {
+  constructor(initialValue = '') {
     this.#value = initialValue;
   }
 
@@ -18,16 +18,15 @@ class StringBuilder {
   }
 
   padBoth(str) {
-    this.padStart(str);
-    this.padEnd(str);
+    this.#value = str + this.#value + str;
   }
 }
 
-const builder = new StringBuilder(".");
+const builder = new StringBuilder('.');
 console.log(builder.getValue()); // "."
-builder.padStart("^");
+builder.padStart('^');
 console.log(builder.getValue()); // "^."
-builder.padEnd("^");
+builder.padEnd('^');
 console.log(builder.getValue()); // "^.^"
-builder.padBoth("=");
+builder.padBoth('=');
 console.log(builder.getValue()); // "=^.^="
